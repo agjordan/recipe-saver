@@ -1,0 +1,23 @@
+{
+    "manifest_version": 2,
+    "name": "RecipeSaverFB",
+    "version": "0.1",
+    "content_scripts": [
+        {
+            "matches": [
+                "<all_urls>"
+            ],
+            "js": ["content.js"]
+        }
+    ],
+    "browser_action": {
+        "default_icon": "whisk.png",
+        "default_popup": "popup.html",
+        "default_title": "Recipe Saver FB"
+    },
+    "background": {
+        "persistent": false,
+        "page": "background.html"
+    },
+    "content_security_policy": "script-src 'self' https://www.gstatic.com/ https://*.firebaseio.com https://www.googleapis.com; object-src 'self'"
+}
