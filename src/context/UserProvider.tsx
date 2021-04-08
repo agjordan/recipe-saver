@@ -7,8 +7,11 @@ export const UserProvider = ({ children }:any) => {
   const [user, setUser] = useState<any>(null);
   
   useEffect(() => {
-    auth.onAuthStateChanged((user) => setUser(user));
-  }, [user]);
+    const unsubscribe = auth.onAuthStateChanged((user) => setUser(user));
+    return () => {
+      unsubscribe()
+    }
+  }, []);
 
   return (
     <UserContext.Provider value={{ user }}>{children}</UserContext.Provider>

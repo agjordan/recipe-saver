@@ -5,7 +5,7 @@ import Router from './routes/Router';
 const App = () => {
 
   return (
-    <UserProvider value={null}>
+    <UserProvider >
       <Router /> 
     </UserProvider>
   )
