@@ -4,12 +4,11 @@ import Home from "../components/Home";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import PrivateRoute from "./PrivateRoute";
 import { UserContext } from "../context/UserProvider"
-import Other from "../components/Other";
+import Recipes from "../components/Recipes";
 
 const Router = () => {
   const [loaded, setLoaded] = useState(false);
   let userContext = useContext(UserContext)
-
 
   useEffect(() => {
     if (userContext.user) setLoaded(true)
@@ -25,8 +24,8 @@ const Router = () => {
           <Route exact path="/">
             <Home />
           </Route>
-          <Route exact path="/other">
-            <Other />
+          <Route exact path="/recipes">
+            <Recipes />
           </Route>
         </PrivateRoute>}
       </Switch>

@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
-import {UserContext} from "../../context/UserProvider"
-import {signOut} from "../../services/auth.service"
+import { UserContext } from "../../context/UserProvider"
+import { signOut } from "../../services/auth.service"
+import { Link } from 'react-router-dom'
 
   
 const Home = () => {
@@ -12,7 +13,7 @@ const Home = () => {
         <>
           <p>Welcome back! {userContext.user.displayName}</p>
           <img src={userContext.user.photoURL} alt=""/>
-          <div><button onClick={signOut}>Logout</button></div>
+          <div><button onClick={signOut}>Logout</button><Link to="/recipes"><button>View Recipes</button></Link></div>
         </>}
         </>
     )
