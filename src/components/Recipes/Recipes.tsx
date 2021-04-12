@@ -1,17 +1,29 @@
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import { getUserRecipes } from '../../services/recipe.service'
 import { UserContext } from "../../context/UserProvider"
+import RecipeCard from '../RecipeCard/RecipeCard'
+import { IRecipe } from './Recipes.models'
+import styles from './Recipes.module.scss'
+
+
 
 const Recipes = () => {
     const userContext = useContext(UserContext)
 
-    const logRecipes = () => {
-        console.log(getUserRecipes(userContext.user.uid))
+    const [recipes, setRecipes] = useState([])
+
+    const getRecipes = async ():Promise<void> => {
+        const recipeArray:any = await getUserRecipes(userContext.user.uid)
+        setRecipes(recipeArray)
     }
 
+    getRecipes()
+    
+
     return (
-        <div>
-            <button onClick={logRecipes}>GetRecipes</button>
+        <div className={styles.results}>
+            {recipes && recipes.map((recipe: IRecipe) => <RecipeCard {...recipe}/> )}
+            
         </div>
     )
 }
