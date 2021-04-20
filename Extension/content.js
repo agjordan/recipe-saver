@@ -15,7 +15,7 @@ chrome.runtime.onMessage.addListener(
             }
 
             if (document.querySelector('script[type=\"application/ld+json\"]')) {
-                var jsonld = document.querySelector('script[type=\"application/ld+json\"]').innerHTML;
+                var jsonld = JSON.parse(document.querySelector('script[type="application/ld+json"]').innerHTML);
                 chrome.runtime.sendMessage({"message": backgroundMessage, "jsonld": jsonld});
             } 
             else {

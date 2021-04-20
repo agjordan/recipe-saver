@@ -1,14 +1,33 @@
+@import '../../styles.scss';
+
 .card {
     max-width: 250px;
+    max-height: 450px;
     margin: 20px;
     border: 1px solid grey;
-    background: darkslategrey;
+    background: $background-color;
     padding: 20px;
     border-radius: 20px;
-    color: cornsilk;
+    color: $primary-text;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .title {
+        // height: 25%;
+        height: 3em;
+        line-height: 1.5em;
+        font-size: 1.5em;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        width: 100%;
+    }
 
     img {
+        box-sizing: border-box;
         max-width: 100%;
         border-radius: 50%;
+        margin-bottom: 15px;
     }
 }

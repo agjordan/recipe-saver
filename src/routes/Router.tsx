@@ -3,8 +3,12 @@ import Login from "../components/Login";
 import Home from "../components/Home";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import PrivateRoute from "./PrivateRoute";
-import { UserContext } from "../context/UserProvider"
+import { UserContext } from "../context/UserProvider";
 import Recipes from "../components/Recipes";
+import Recipe from "../components/Recipe";
+
+
+
 
 const Router = () => {
   const [loaded, setLoaded] = useState(false);
@@ -26,6 +30,9 @@ const Router = () => {
           </Route>
           <Route exact path="/recipes">
             <Recipes />
+          </Route>
+          <Route exact path="/recipe/:recipeId">
+            <Recipe />
           </Route>
         </PrivateRoute>}
       </Switch>

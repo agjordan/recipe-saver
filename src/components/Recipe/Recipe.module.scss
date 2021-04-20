@@ -1,0 +1,72 @@
+@import "../../styles.scss";
+
+.page {
+  background: $primary-text;
+  min-height: 100vh;
+  margin: 0;
+  padding: 25px;
+  max-width: 100%;
+
+  .recipe {
+    background: $background-color;
+    color: $primary-text;
+    padding: 20px;
+    border-radius: 20px;
+
+    .titleImageContainer {
+      display: flex;
+      flex-direction: column-reverse;
+
+      .localeAndTime {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      img {
+        max-height: 25vh;
+        object-fit: cover;
+        border: 2px solid $primary-text;
+        border-radius: 5px;
+      }
+    }
+
+    .instructionIngredientsContainer {
+      display: flex;
+      flex-direction: row;
+
+      ul {
+        width: 45%;
+      }
+
+      ol {
+        width: 45%;
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 768px) {
+
+  .page {
+    .recipe {
+      display: flex;
+      flex-direction: column;
+      width: 75%;
+  
+      .titleImageContainer {
+        flex-direction: row;
+
+        .localeAndTime {
+          width: 75%;
+        }
+
+        img {
+          margin: 20px 40px;
+        }
+
+      }
+    }
+  }
+
+  
+}

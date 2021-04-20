@@ -30,16 +30,24 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 
     // save recipe to firestore
   } else if (request.message === "saveRecipe") {
+    console.log(jsonld)
     db.collection(currentUser.uid)
       .add({
-        name: formatName(jsonld),
-        json: jsonld,
-        url: JSON.parse(jsonld).mainEntityOfPage,
+        name: jsonld.name,
+        url: jsonld.mainEntityOfPage,
+        images: jsonld.image.flat(),
+        ingredients: jsonld.recipeIngredient.flat(),
+        instructions: jsonld.recipeInstructions.flat(),
+        cuisine: jsonld.recipeCuisine,
+        category: jsonld.recipeCategory,
+        yield: jsonld.recipeYield,
+        prepTime: jsonld.prepTime,
+        cookTime: jsonld.cookTime,
+        json: JSON.stringify(jsonld)
       })
       .catch(function (error) {
         console.error("Error adding document: ", error);
       });
-
     alert("Recipe saved!");
 
     // view saved recipes
@@ -68,10 +76,6 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 });
 
 const printRecipe = (obj) => {
-  //get recipe name
-  var writeableName = formatName(obj);
-  //get author name
-  var writeableAuthor = formatAuthor(obj);
   // get image
   var writeableImage = formatImage(obj);
   //get ingredients
@@ -81,20 +85,12 @@ const printRecipe = (obj) => {
 
   // write to new tab/blank page
   chrome.tabs.create({
-    url: `javascript:document.write("<h1 style='display:inline'>${writeableName}</h1> <h3 style='display:inline'> - ${writeableAuthor}</h3>${writeableImage}<br/>${writeableIngredients} ${writeableInstructions}")`,
+    url: `javascript:document.write("<h1 style='display:inline'>${obj.name}</h1> <h3 style='display:inline'> - ${obj.author.name}</h3>${writeableImage}<br/>${writeableIngredients} ${writeableInstructions}")`,
   });
 };
 
-const formatName = (obj) => {
-  return JSON.parse(obj).name;
-};
-
-const formatAuthor = (obj) => {
-  return JSON.parse(obj).author.name;
-};
-
 const formatImage = (obj) => {
-  let image = JSON.parse(obj).image;
+  let image = obj.image;
 
   //if array of images, select first image otherwise should already be an image
   if (Array.isArray(image)) {
@@ -113,7 +109,7 @@ const formatImage = (obj) => {
 };
 
 const formatIngredients = (obj) => {
-  var ingredients = JSON.parse(obj).recipeIngredient;
+  var ingredients = obj.recipeIngredient;
 
   if (Array.isArray(ingredients[0])) {
     ingredients = ingredients[0];
@@ -130,7 +126,7 @@ const formatIngredients = (obj) => {
 };
 
 const formatInstructions = (obj) => {
-  var instructions = JSON.parse(obj).recipeInstructions;
+  var instructions = obj.recipeInstructions;
 
   //sometimes array is doubled up (but could be more?)
   while (Array.isArray(instructions[0])) {
