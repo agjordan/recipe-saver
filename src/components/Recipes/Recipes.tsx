@@ -30,7 +30,9 @@ const Recipes = () => {
   
   return (
     <div className={styles.results}>
-      <button onClick={signOut}>Logout</button>
+      <div className={styles.resultsTop}>
+      <p>Welcome back! {userContext.user.displayName}</p><button onClick={signOut}>Logout</button>
+      </div>
       {recipes && recipes.map((recipe: IRecipe) => <RecipeCard key={recipe.id} {...recipe} delRecipe={deleteRecipeAndRefresh}/>)}
     </div>
   );

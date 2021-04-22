@@ -1,7 +1,25 @@
+@import '../../styles.scss';
+
 .results {
     display: flex;
     flex-wrap: wrap;
     background: cornsilk;
     justify-items: center;
     min-height: 100vh;
+
+    .resultsTop {
+        width: 100%;
+        max-height: 5vh;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 20px;
+
+        button {
+          background: $background-color;
+          color: $primary-text;
+          border-radius: $br-rounded;
+          border: none;
+        }
+      }
 }
