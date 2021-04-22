@@ -15,8 +15,11 @@ chrome.runtime.onMessage.addListener(
             }
 
             if (document.querySelector('script[type=\"application/ld+json\"]')) {
-                var jsonld = JSON.parse(document.querySelector('script[type="application/ld+json"]').innerHTML);
-                chrome.runtime.sendMessage({"message": backgroundMessage, "jsonld": jsonld});
+                const jsonldQuery = document.querySelectorAll('script[type="application/ld+json"]');
+                const jsonArray = Array.from(jsonldQuery)
+                const result = jsonArray.filter(json => JSON.parse(json.innerHTML)['@type'] === 'Recipe')
+                const jsonld = result.length > 0 ? result[0].innerHTML : null;
+                chrome.runtime.sendMessage({"message": backgroundMessage, "jsonld": JSON.parse(jsonld)});
             } 
             else {
                 alert("Page does not use JSON-LD format");

@@ -30,12 +30,21 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 
     // save recipe to firestore
   } else if (request.message === "saveRecipe") {
-    console.log(jsonld)
+    if (!jsonld) {
+      alert('recipe not implemented with ld+json, try a different recipe. Sorry.')
+      return
+    }
+
+    if (Array.isArray(jsonld.image)) jsonld.image = jsonld.image.flat()
+
+    jsonld.recipeIngredient = jsonld.recipeIngredient.flat();
+    jsonld.recipeInstructions = jsonld.recipeInstructions.flat();
+
     db.collection(currentUser.uid)
       .add({
         name: jsonld.name,
-        url: jsonld.mainEntityOfPage,
-        images: jsonld.image.flat(),
+        url: window.location.href,
+        images: jsonld.image,
         ingredients: jsonld.recipeIngredient.flat(),
         instructions: jsonld.recipeInstructions.flat(),
         cuisine: jsonld.recipeCuisine,
@@ -45,17 +54,20 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         cookTime: jsonld.cookTime,
         json: JSON.stringify(jsonld)
       })
+      .then(() => {
+        alert("Recipe saved!");
+      })
       .catch(function (error) {
         console.error("Error adding document: ", error);
       });
-    alert("Recipe saved!");
+    
 
     // view saved recipes
   } else if (request.message === "viewRecipes") {
     chrome.tabs.create({ url: `https://recipe-saver-f431f.web.app/` });
   } else if (request.message === "login") {
     const signIn = () => {
-      firebase.auth().signInWithPopup(provider).catch(console.log());
+      firebase.auth().signInWithPopup(provider).catch(error => console.log(error));
     };
 
     signIn();
@@ -70,7 +82,6 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     }
 
   } else if (request.message === "logOut") {
-    console.log('logOut')
     firebase.auth().signOut()
   }
 });

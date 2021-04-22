@@ -1,5 +1,5 @@
-import { useContext, useState, useEffect } from "react";
-import { getUserRecipes } from "../../services/recipe.service";
+import { useContext, useState, useEffect, Dispatch } from "react";
+import { getUserRecipes, deleteRecipe } from "../../services/recipe.service";
 import { UserContext } from "../../context/UserProvider";
 import RecipeCard from "../RecipeCard/RecipeCard";
 import { IRecipe } from "./Recipes.models";
@@ -9,7 +9,7 @@ const Recipes = () => {
   const userContext = useContext(UserContext);
 
   const [recipes, setRecipes] = useState([]);
-  const [userID] = useState(userContext.user.uid)
+  const [userID]:[any, Dispatch<any>] = useState(userContext.user.uid)
 
   useEffect(() => {
     const getRecipes = async (): Promise<void> => {
@@ -19,11 +19,17 @@ const Recipes = () => {
     getRecipes();
   }, [userID]);
 
+  const deleteRecipeAndRefresh = async (docId: string) => {
+    deleteRecipe(userID, docId)
+    const recipeArray: any = await getUserRecipes(userID);
+    setRecipes(recipeArray)
+  }
+
 
   
   return (
     <div className={styles.results}>
-      {recipes && recipes.map((recipe: IRecipe) => <RecipeCard key={recipe.id} {...recipe}/>)}
+      {recipes && recipes.map((recipe: IRecipe) => <RecipeCard key={recipe.id} {...recipe} delRecipe={deleteRecipeAndRefresh}/>)}
     </div>
   );
 };

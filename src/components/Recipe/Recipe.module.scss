@@ -32,14 +32,10 @@
 
     .instructionIngredientsContainer {
       display: flex;
-      flex-direction: row;
+      flex-direction: column;
 
-      ul {
-        width: 45%;
-      }
-
-      ol {
-        width: 45%;
+      li {
+        padding: 5px 0px;
       }
     }
   }
@@ -65,8 +61,24 @@
         }
 
       }
+
+      .instructionIngredientsContainer {
+        display: flex;
+        flex-direction: row;
+  
+        ul {
+          width: 45%;
+          max-height: 50vh;
+          overflow-y: scroll;
+        }
+  
+        ol {
+          width: 45%;
+          max-height: 50vh;
+          overflow-y: scroll;
+        }
     }
   }
-
+  }
   
 }

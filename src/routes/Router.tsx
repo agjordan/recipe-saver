@@ -7,9 +7,6 @@ import { UserContext } from "../context/UserProvider";
 import Recipes from "../components/Recipes";
 import Recipe from "../components/Recipe";
 
-
-
-
 const Router = () => {
   const [loaded, setLoaded] = useState(false);
   let userContext = useContext(UserContext)

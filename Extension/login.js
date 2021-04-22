@@ -13,7 +13,6 @@ document.addEventListener("DOMContentLoaded", () => {
 chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
         if (request.message === 'authenticated') {
-            console.log('authenticated message received')
             chrome.browserAction.setPopup({popup: "popup.html"})
         }
     }

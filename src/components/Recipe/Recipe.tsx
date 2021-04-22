@@ -20,8 +20,6 @@ function Recipe() {
     getRecipe();
   }, [userId, params.recipeId]);
 
-  if (recipe) console.log(recipe.instructions);
-
   return (
     <div className={styles.page}>
       {recipe && (
