@@ -53,6 +53,7 @@ function Recipe() {
               ))}
             </ol>
           </div>
+          <a href={recipe.url} target='_blank' rel="noreferrer"><p>See original recipe</p></a>
         </div>
       )}
     </div>

@@ -3,6 +3,7 @@ import { getUserRecipes, deleteRecipe } from "../../services/recipe.service";
 import { UserContext } from "../../context/UserProvider";
 import RecipeCard from "../RecipeCard/RecipeCard";
 import { IRecipe } from "./Recipes.models";
+import { signOut } from "../../services/auth.service"
 import styles from "./Recipes.module.scss";
 
 const Recipes = () => {
@@ -29,6 +30,7 @@ const Recipes = () => {
   
   return (
     <div className={styles.results}>
+      <button onClick={signOut}>Logout</button>
       {recipes && recipes.map((recipe: IRecipe) => <RecipeCard key={recipe.id} {...recipe} delRecipe={deleteRecipeAndRefresh}/>)}
     </div>
   );

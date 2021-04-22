@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         if (request.message === 'unauthorized') chrome.browserAction.setPopup({popup: "login.html"})
+        if (request.message === 'authenticated') chrome.browserAction.setPopup({popup: "popup.html"})
     });
 
 });

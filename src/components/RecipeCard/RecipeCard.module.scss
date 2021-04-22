@@ -7,7 +7,7 @@
   border: 1px solid grey;
   background: $background-color;
   padding: 20px;
-  border-radius: 20px;
+  border-radius: $br-rounded;
   color: $primary-text;
   display: flex;
   flex-direction: column;
@@ -23,7 +23,7 @@
   .delButton {
     align-self: flex-end;
     padding: 5px;
-    border-radius: 50%;
+    border-radius: $br-circle;
     width: 20px;
     height: 20px;
     text-align: center;
@@ -45,7 +45,7 @@
     box-sizing: border-box;
     height: 60%;
     object-fit: cover;
-    border-radius: 50%;
+    border-radius: $br-circle;
     margin-bottom: 15px;
   }
 }

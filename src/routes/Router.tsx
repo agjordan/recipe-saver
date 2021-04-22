@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useContext } from "react";
 import Login from "../components/Login";
-import Home from "../components/Home";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import PrivateRoute from "./PrivateRoute";
 import { UserContext } from "../context/UserProvider";
 import Recipes from "../components/Recipes";
 import Recipe from "../components/Recipe";
+import Register from "../components/Register";
 
 const Router = () => {
   const [loaded, setLoaded] = useState(false);
@@ -21,9 +21,12 @@ const Router = () => {
         <Route path="/login">
           <Login />
         </Route>
+        <Route path="/register">
+          <Register />
+        </Route>
         {loaded && <PrivateRoute>
           <Route exact path="/">
-            <Home />
+            <Recipes />
           </Route>
           <Route exact path="/recipes">
             <Recipes />

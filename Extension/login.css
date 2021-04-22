@@ -1,7 +1,3 @@
-#login {
-    /* visibility: hidden; */
-}
-
-.show {
-    visibility: visible;
+#register {
+    text-decoration: underline;
 }

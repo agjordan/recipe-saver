@@ -1,0 +1,26 @@
+@import '../../styles.scss';
+
+.registerContainer {
+    background-color: $background-color;
+    color: $primary-text;
+    display: grid;
+    place-items: center;
+    width: 25vw;
+    margin: 10% auto;
+    border-radius: $br-rounded;
+
+    
+  .registerForm {
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+
+    .formElement {
+        margin-bottom: 10px;
+        background-color: $primary-text;
+        color: $background-color;
+        border-radius: $br-rounded;
+    }
+  }
+
+}

@@ -24,6 +24,7 @@ firebase.auth().onAuthStateChanged((user) => (currentUser = user));
 // listen for a message back from content.js with a payload
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   const jsonld = request.jsonld;
+  const additionalInfo = request.additionalInfo
   //display print friendly recipe
   if (request.message === "printRecipe") {
     printRecipe(jsonld);
@@ -40,10 +41,26 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     jsonld.recipeIngredient = jsonld.recipeIngredient.flat();
     jsonld.recipeInstructions = jsonld.recipeInstructions.flat();
 
+    function stringToHash(string) {
+                  
+      var hash = 0;
+        
+      if (string.length === 0) return hash;
+        
+      for (let i = 0; i < string.length; i++) {
+          const char = string.charCodeAt(i);
+          hash = ((hash << 5) - hash) + char;
+          hash = hash & hash;
+      }
+        
+      return hash.toString();
+    }
+
     db.collection(currentUser.uid)
-      .add({
+    .doc(stringToHash(additionalInfo.url))
+    .set({
         name: jsonld.name,
-        url: window.location.href,
+        url: additionalInfo.url,
         images: jsonld.image,
         ingredients: jsonld.recipeIngredient.flat(),
         instructions: jsonld.recipeInstructions.flat(),
@@ -65,24 +82,31 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     // view saved recipes
   } else if (request.message === "viewRecipes") {
     chrome.tabs.create({ url: `https://recipe-saver-f431f.web.app/` });
-  } else if (request.message === "login") {
-    const signIn = () => {
-      firebase.auth().signInWithPopup(provider).catch(error => console.log(error));
-    };
-
-    signIn();
+  } else if (request.message === "logInWithGoogle") {
+    firebase.auth().signInWithPopup(provider).catch(error => console.log(error));
 
     if (currentUser) chrome.runtime.sendMessage({ message: "authenticated" });
 
+  } else if (request.message === "logInWithEmail") {
+    firebase.auth().signInWithEmailAndPassword(request.email, request.password)
+    .then(chrome.runtime.sendMessage({ message: "authenticated" }))
+    .catch(error => alert(error))
+    
+    if (currentUser) chrome.runtime.sendMessage({ message: "authenticated" });
+
   } else if (request.message === "checkAuth") {
-    if (currentUser) {
-      chrome.runtime.sendMessage({ message: "authenticated" })
-    } else {
-      chrome.runtime.sendMessage({ message: "unauthorized" })
-    }
+    if (currentUser) chrome.runtime.sendMessage({ message: "authenticated" })
+    chrome.runtime.sendMessage({ message: "unauthorized" })
+    
 
   } else if (request.message === "logOut") {
     firebase.auth().signOut()
+    chrome.runtime.sendMessage({ message: "unauthorized" })
+    window.close()
+  } else if (request.message === "register") {
+    chrome.tabs.create({
+      url: 'https://recipe-saver-f431f.web.app/register',
+    });
   }
 });
 
