@@ -7,7 +7,8 @@ export interface IRecipe {
     category: string
     cuisine: string
     ingredients: any[]
-    yield: any
-    cookTime: any
-    prepTime: any
+    yield: string
+    cookTime: string
+    prepTime: string
+    notes:string
 }

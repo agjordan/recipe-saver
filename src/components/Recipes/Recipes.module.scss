@@ -1,19 +1,24 @@
 @import '../../styles.scss';
 
 .results {
-    display: flex;
-    flex-wrap: wrap;
     background: cornsilk;
-    justify-items: center;
     min-height: 100vh;
+    max-width: 100vw;
 
     .resultsTop {
+      box-sizing: border-box;
         width: 100%;
         max-height: 5vh;
         display: flex;
         flex-direction: row;
         justify-content: space-between;
+        align-items: flex-start;
         padding: 20px;
+
+        p {
+          padding: 0;
+          margin: 0;
+        }
 
         button {
           background: $background-color;
@@ -22,4 +27,11 @@
           border: none;
         }
       }
+
+      .cardsContainer {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
 }
+

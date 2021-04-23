@@ -2,8 +2,10 @@ $background-color: darkslategrey;
 $primary-text: cornsilk;
 $br-circle: 50%;
 $br-rounded: 20px;
+$fonts: 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
 
 body {
     min-height: 100vh;
     background-color: $primary-text;
+    font-family: $fonts;
 }

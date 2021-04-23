@@ -1,0 +1,82 @@
+@import "../../styles.scss";
+
+.notes {
+  background: $background-color;
+  color: $primary-text;
+  padding: 20px;
+  border-radius: 20px;
+  margin-bottom: 25px;
+  white-space: pre-wrap;
+
+  .notesHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .svgIcon {
+    box-sizing: border-box;
+    display: grid;
+    place-items: center;
+    height: 40px;
+    width: 40px;
+    padding: 5px;
+    border-radius: $br-circle;
+  }
+
+  &:hover {
+    .svgIcon {
+      background: $primary-text;
+      color: $background-color;
+
+    }
+  }
+
+  .viewNotes {
+    box-sizing: border-box;
+    margin: 0;
+    border: 2px solid $background-color;
+    max-height: 75vh;
+    overflow-y: scroll;
+  }
+
+  .editNotes {
+    box-sizing: border-box;
+    width: 100%;
+    background: $background-color;
+    color: $primary-text;
+    font-family: $fonts;
+    font-size: 1em;
+    height: fit-content;
+    border: none;
+    resize: none;
+    max-height: 75vh;
+  }
+
+  .cancelEdit {
+    font-size: .8em;
+    margin-right: 10px;
+  }
+
+  .saveButton {
+    box-sizing: content-box;
+    background: $primary-text;
+    color: $background-color;
+    width: fit-content;
+    padding: 5px 10px;
+    border-radius: $br-rounded;
+    border: none;
+  }
+
+  h2 {
+    display: inline;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .notes {
+    width: 25%;
+    margin-left: 25px;
+    margin-bottom: 0;
+  }
+}

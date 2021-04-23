@@ -1,8 +1,9 @@
 @import "../../styles.scss";
 
 .page {
+  box-sizing: border-box;
   background: $primary-text;
-  min-height: 100vh;
+  height: 100vh;
   margin: 0;
   padding: 25px;
   max-width: 100%;
@@ -13,9 +14,15 @@
     padding: 20px;
     border-radius: 20px;
 
+    
+
     .titleImageContainer {
       display: flex;
       flex-direction: column-reverse;
+
+      .recipeHeader {
+        width: 100%;
+      }
 
       .localeAndTime {
         display: flex;
@@ -47,6 +54,9 @@
 @media only screen and (min-width: 768px) {
 
   .page {
+    display: flex;
+    flex-direction: row-reverse;
+
     .recipe {
       display: flex;
       flex-direction: column;
