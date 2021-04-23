@@ -69,7 +69,8 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         yield: jsonld.recipeYield,
         prepTime: jsonld.prepTime,
         cookTime: jsonld.cookTime,
-        json: JSON.stringify(jsonld)
+        json: JSON.stringify(jsonld),
+        notes: "You can leave notes about this recipe here :)"
       })
       .then(() => {
         alert("Recipe saved!");
