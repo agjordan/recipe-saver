@@ -11,6 +11,7 @@ var firebaseConfig = {
   appId: "1:1002136588620:web:475c34249d86bdaadbffe9",
   measurementId: "G-9L51SZ9BWB",
 };
+
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
@@ -25,12 +26,22 @@ firebase.auth().onAuthStateChanged((user) => (currentUser = user));
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   const jsonld = request.jsonld;
   const additionalInfo = request.additionalInfo
+
   //display print friendly recipe
   if (request.message === "printRecipe") {
+    console.log(jsonld)
+
+    if (!jsonld) {
+      alert('recipe not implemented with ld+json, try a different recipe. Sorry.')
+      return
+    }
+
     printRecipe(jsonld);
 
     // save recipe to firestore
   } else if (request.message === "saveRecipe") {
+    console.log(jsonld)
+
     if (!jsonld) {
       alert('recipe not implemented with ld+json, try a different recipe. Sorry.')
       return
@@ -38,10 +49,10 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 
     if (Array.isArray(jsonld.image)) jsonld.image = jsonld.image.flat()
 
-    jsonld.recipeIngredient = jsonld.recipeIngredient.flat();
-    jsonld.recipeInstructions = jsonld.recipeInstructions.flat();
+    if (Array.isArray(jsonld.recipeIngredient)) jsonld.recipeIngredient = jsonld.recipeIngredient.flat();
+    if (Array.isArray(jsonld.recipeInstructions)) jsonld.recipeInstructions = jsonld.recipeInstructions.flat();
 
-    function stringToHash(string) {
+    const stringToHash = (string) => {
                   
       var hash = 0;
         
@@ -56,19 +67,30 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
       return hash.toString();
     }
 
+    const getImage = () => {
+      if (Array.isArray(jsonld.image)) return jsonld.image[0]
+      if (jsonld.image?.url) return jsonld.image.url
+      return jsonld.image
+    }
+
+    const getInstructions = () => {
+      if (Array.isArray(jsonld.recipeInstructions)) return jsonld.recipeInstructions.flat()
+      return jsonld.recipeInstructions
+    }
+
     db.collection(currentUser.uid)
     .doc(stringToHash(additionalInfo.url))
     .set({
         name: jsonld.name,
         url: additionalInfo.url,
-        images: jsonld.image,
+        image: getImage(),
         ingredients: jsonld.recipeIngredient.flat(),
-        instructions: jsonld.recipeInstructions.flat(),
-        cuisine: jsonld.recipeCuisine,
-        category: jsonld.recipeCategory,
-        yield: jsonld.recipeYield,
-        prepTime: jsonld.prepTime,
-        cookTime: jsonld.cookTime,
+        instructions: getInstructions(),
+        cuisine: jsonld.recipeCuisine || 'unknown',
+        category: jsonld.recipeCategory || 'unknown',
+        yield: jsonld.recipeYield || 'unknown',
+        prepTime: jsonld.prepTime || 'unknown',
+        cookTime: jsonld.cookTime || 'unknown',
         json: JSON.stringify(jsonld),
         notes: "You can leave notes about this recipe here :)"
       })

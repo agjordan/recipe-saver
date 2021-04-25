@@ -4,7 +4,7 @@ import { IRecipe } from "../Recipes/Recipes.models";
 import styles from "./RecipeCard.module.scss";
 
 const RecipeCard = (props: any) => {
-  const { category, cuisine, images, name, id }: IRecipe = props
+  const { category, cuisine, image, name, id }: IRecipe = props
   const delRecipe: any = props.delRecipe
   let history = useHistory();
 
@@ -17,18 +17,13 @@ const RecipeCard = (props: any) => {
     delRecipe(id)
   }
 
-  const getImage = () => {
-    if (Array.isArray(images)) return images[0]
-    return images
-  }
-
   return (
     <div className={styles.card} onClick={handleClick}>
       <span className={styles.delButton} onClick={removeRecipe}>X</span>
       <div className={styles.title}>
         {name}
       </div>
-      <img src={getImage()} alt="" />
+      <img src={image} alt="" />
       <div>
         <span>{category} </span>
         <span> | </span>

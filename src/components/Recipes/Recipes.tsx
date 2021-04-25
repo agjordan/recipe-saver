@@ -26,10 +26,20 @@ const Recipes = () => {
     setRecipes(recipeArray);
   };
 
+  const addRecipeFromURL = async (event: any) => {
+    event.preventDefault();
+    const url = event.target[0].value;
+    console.log(url)
+  }
+
   return (
     <div className={styles.results}>
       <div className={styles.resultsTop}>
         <p>Welcome back! {userContext.user.displayName}</p>
+        <form onSubmit={addRecipeFromURL}>
+          <input type="text" placeholder="url for recipe to save"/>
+          <button type="submit">Save</button>
+        </form>
         <button onClick={signOut}>Logout</button>
       </div>
       <div className={styles.cardsContainer}>

@@ -21,8 +21,6 @@ function Recipe() {
     getRecipe();
   }, [userId, params.recipeId]);
 
-  
-  console.log(recipe)
   return (
     <div className={styles.page}>
       {recipe && (
@@ -30,7 +28,7 @@ function Recipe() {
           <Notes key={params.recipeId} notes={recipe.notes} userId={userId} docId={params.recipeId}/>
           <div className={styles.recipe}>
             <div className={styles.titleImageContainer}>
-              <img src={recipe.images[0]} alt={recipe.name} />
+              <img src={recipe.image} alt={recipe.name} />
               <div className={styles.recipeHeader}>
                 <h1 className={styles.name}>{parse(recipe.name)}</h1>
                 <h3 className={styles.localeAndTime}>
