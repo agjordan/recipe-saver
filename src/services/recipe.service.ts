@@ -1,7 +1,5 @@
 import { db } from "./firebase.service";
 import "firebase/firestore";
-import axios from "axios";
-import cheerio from "cheerio";
 
 export const getUserRecipes = async (userId: string) => {
   const results = await db.collection(userId).get();
@@ -26,3 +24,75 @@ export const updateNotes = async (
 ) => {
   db.collection(userId).doc(docId).update({ notes: updateString });
 };
+
+export const saveRecipeWithUrl = async (userId:string, url:string ) => {
+
+  const jsonld:any = await fetch(`https://recipe-saver-server.herokuapp.com/?url=${url}`).then(response => response.json())
+  console.log(jsonld)
+
+  if (!jsonld) {
+    alert('recipe not implemented with ld+json, try a different recipe. Sorry.')
+    return
+  }
+
+  if (Array.isArray(jsonld.image)) jsonld.image = jsonld.image.flat()
+
+  if (Array.isArray(jsonld.recipeIngredient)) jsonld.recipeIngredient = jsonld.recipeIngredient.flat();
+  if (Array.isArray(jsonld.recipeInstructions)) jsonld.recipeInstructions = jsonld.recipeInstructions.flat();
+
+  const stringToHash = (string:string): string => {
+                
+    var hash = 0;
+      
+    if (string.length === 0) return hash.toString();
+      
+    for (let i = 0; i < string.length; i++) {
+        const char = string.charCodeAt(i);
+        hash = ((hash << 5) - hash) + char;
+        hash = hash & hash;
+    }
+      
+    return hash.toString();
+  }
+
+  const getImage = () => {
+    if (Array.isArray(jsonld.image)) return jsonld.image[0]
+    if (jsonld.image?.url) return jsonld.image.url
+    return jsonld.image
+  }
+
+  const getInstructions = () => {
+    if (Array.isArray(jsonld.recipeInstructions)) return jsonld.recipeInstructions.flat()
+    return jsonld.recipeInstructions
+  }
+
+  const getIngredients = () => {
+    if (Array.isArray(jsonld.recipeIngredient)) return jsonld.recipeIngredient.flat()
+    return jsonld.recipeIngredient
+  }
+
+  console.log(jsonld.recipeIngredient)
+
+  db.collection(userId)
+  .doc(stringToHash(url))
+  .set({
+      name: jsonld.name,
+      url: url,
+      image: getImage(),
+      ingredients: getIngredients(),
+      instructions: getInstructions(),
+      cuisine: jsonld.recipeCuisine || 'unknown',
+      category: jsonld.recipeCategory || 'unknown',
+      yield: jsonld.recipeYield || 'unknown',
+      prepTime: jsonld.prepTime || 'unknown',
+      cookTime: jsonld.cookTime || 'unknown',
+      json: JSON.stringify(jsonld),
+      notes: "You can leave notes about this recipe here :)"
+    })
+    .then(() => {
+      alert("Recipe saved!");
+    })
+    .catch(function (error) {
+      console.error("Error adding document: ", error);
+    });
+}

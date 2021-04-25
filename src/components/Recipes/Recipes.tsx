@@ -1,5 +1,5 @@
 import { useContext, useState, useEffect, Dispatch } from "react";
-import { getUserRecipes, deleteRecipe } from "../../services/recipe.service";
+import { getUserRecipes, deleteRecipe, saveRecipeWithUrl } from "../../services/recipe.service";
 import { UserContext } from "../../context/UserProvider";
 import RecipeCard from "../RecipeCard/RecipeCard";
 import { IRecipe } from "./Recipes.models";
@@ -29,7 +29,10 @@ const Recipes = () => {
   const addRecipeFromURL = async (event: any) => {
     event.preventDefault();
     const url = event.target[0].value;
-    console.log(url)
+    event.target[0].value = null
+    await saveRecipeWithUrl(userID, url)
+    const recipeArray: any = await getUserRecipes(userID);
+    setRecipes(recipeArray);
   }
 
   return (

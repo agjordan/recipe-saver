@@ -40,7 +40,6 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 
     // save recipe to firestore
   } else if (request.message === "saveRecipe") {
-    console.log(jsonld)
 
     if (!jsonld) {
       alert('recipe not implemented with ld+json, try a different recipe. Sorry.')
@@ -74,8 +73,14 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     }
 
     const getInstructions = () => {
+      console.log(jsonld.recipeInstructions)
       if (Array.isArray(jsonld.recipeInstructions)) return jsonld.recipeInstructions.flat()
       return jsonld.recipeInstructions
+    }
+
+    const getIngredients = () => {
+      if (Array.isArray(jsonld.recipeIngredients)) return jsonld.recipeIngredients.flat()
+      return jsonld.recipeIngredients
     }
 
     db.collection(currentUser.uid)
@@ -84,7 +89,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         name: jsonld.name,
         url: additionalInfo.url,
         image: getImage(),
-        ingredients: jsonld.recipeIngredient.flat(),
+        ingredients: getIngredients(),
         instructions: getInstructions(),
         cuisine: jsonld.recipeCuisine || 'unknown',
         category: jsonld.recipeCategory || 'unknown',
