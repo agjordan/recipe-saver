@@ -22,7 +22,9 @@ Definitely a work in progress - happy to get feedback/ideas :)
 ## Tech/framework used
 - HTML
 - Sass
-- Vanilla JS
+- TypeScript
+- Heroku
+- Firebase
 
 ## Features
 - Sign in, sign out - saved recipes segregated by user
