@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
-    "name": "RecipeSaverFB",
-    "version": "0.1",
+    "name": "Just my Recipes",
+    "version": "0.0.1",
     "content_scripts": [
         {
             "matches": [
@@ -11,9 +11,9 @@
         }
     ],
     "browser_action": {
-        "default_icon": "whisk.png",
+        "default_icon": "/icons/icon128.png",
         "default_popup": "login.html",
-        "default_title": "Recipe Saver FB"
+        "default_title": "Just my Recipes"
     },
     "background": {
         "persistent": true,

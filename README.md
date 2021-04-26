@@ -1,46 +1,31 @@
-# Getting Started with Create React App
+## Just my Recipe
+Just my recipe is a simple web app where you can save recipes without any of the bloat found around it (author's story of how they came up with the recipe, their life story, etc.). 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Still a work in progress - next steps will be to add more support for recipe data formats around the web (currently it works really well for recent recipes posted on Food52.com - your mileage will vary with other websites). I also want to add dynamic filters (that are populated with values from the user's recipes) and search to be able to more easily find saved recipes.
 
-## Available Scripts
+## Motivation
+Wanted to build something in TypeScript as I had not done so before and had always wanted a simple place to keep the recipes that I like but had never found the appropriate tool for it.
 
-In the project directory, you can run:
+I also wanted to use Heroku to deploy an API endpoint as that is also something that I had no previous experience doing.
 
-### `npm start`
+Happy to have managed to do both :)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Build status
+Definitely a work in progress - happy to get feedback/ideas :)
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Screenshots
 
-### `npm test`
+![Connect4](./assets/../src/justmyrecipe.png "Screenshot from recipe page")
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Tech/framework used
+- HTML
+- Sass
+- Vanilla JS
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Features
+- Sign in, sign out - saved recipes segregated by user
+- Save recipes from the web by using the input box on the main page
+- Use the Chrome Extension to save recipes while browsing (can also be used to create a print friendly format)
+  
+## Chrome Extension
+I am in the process of getting the Chrome Extension approved for the Chrome Web Store, in the meantime it is included in the files in this repo in a folder called Extension which can be loaded into Chrome.

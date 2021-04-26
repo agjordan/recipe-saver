@@ -27,7 +27,7 @@ function Register() {
         <>
           <div className={styles.spacer}></div>
           <div className={styles.registerContainer}>
-            <h1>Recipe Saver</h1>
+            <h1>Just my Recipes</h1>
             <form onSubmit={handleSubmit} className={styles.registerForm}>
               <input
                 className={styles.formElement}
