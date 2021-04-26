@@ -3,6 +3,8 @@ Just my recipe is a simple web app where you can save recipes without any of the
 
 Still a work in progress - next steps will be to add more support for recipe data formats around the web (currently it works really well for recent recipes posted on Food52.com - your mileage will vary with other websites). I also want to add dynamic filters (that are populated with values from the user's recipes) and search to be able to more easily find saved recipes.
 
+You can view/use it here: [Just my Recipe](https://recipe-saver-f431f.web.app/)
+
 ## Motivation
 Wanted to build something in TypeScript as I had not done so before and had always wanted a simple place to keep the recipes that I like but had never found the appropriate tool for it.
 
@@ -15,7 +17,7 @@ Definitely a work in progress - happy to get feedback/ideas :)
 
 ## Screenshots
 
-![Connect4](./assets/../src/justmyrecipe.png "Screenshot from recipe page")
+![Screenshot](./assets/../src/justmyrecipe.png "Screenshot from recipe page")
 
 ## Tech/framework used
 - HTML
