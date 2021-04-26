@@ -11,7 +11,7 @@
   color: $primary-text;
   display: grid;
   place-items: center;
-  width: 25vw;
+  width: 90vw;
   margin: auto;
   border-radius: $br-rounded;
 
@@ -46,5 +46,12 @@
       height: 20px;
       margin-right: 10px;
     }
+  }
+}
+
+
+@media only screen and (min-width: 768px) {
+  .loginContainer {
+    width: 25vw;
   }
 }

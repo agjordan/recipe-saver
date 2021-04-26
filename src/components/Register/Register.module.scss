@@ -1,12 +1,17 @@
 @import '../../styles.scss';
 
+.spacer{
+  height: 20vh;
+  width: 100%;
+}
+
 .registerContainer {
     background-color: $background-color;
     color: $primary-text;
     display: grid;
     place-items: center;
-    width: 25vw;
-    margin: 10% auto;
+    width: 90vw;
+    margin: auto;
     border-radius: $br-rounded;
 
     
@@ -23,4 +28,10 @@
     }
   }
 
+}
+
+@media only screen and (min-width: 768px) {
+  .registerContainer {
+    width: 25vw;
+  }
 }
