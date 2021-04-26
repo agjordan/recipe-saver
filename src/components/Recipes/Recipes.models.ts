@@ -3,7 +3,7 @@ export interface IRecipe {
     name: string
     url: string
     id: string
-    images: string[]
+    image: string
     category: string
     cuisine: string
     ingredients: any[]
@@ -11,4 +11,11 @@ export interface IRecipe {
     cookTime: string
     prepTime: string
     notes:string
+}
+
+export interface IImageObject {
+    url: string 
+    '@type'?: string;
+    height?: number;
+    width?: number;
 }

@@ -27,7 +27,7 @@ const Login = () => {
         <>
         <div className={styles.spacer}></div>
         <div className={styles.loginContainer}>
-          <h1>Recipe Saver</h1>
+          <h1>Just my Recipes!</h1>
           <form onSubmit={handleSubmit} className={styles.loginForm}>
             <input className={styles.formElement} type="email" placeholder="email" autoComplete="email"/>
             <input className={styles.formElement} type="password" placeholder="password" autoComplete="current-password"/>
