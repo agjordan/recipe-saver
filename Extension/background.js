@@ -29,7 +29,6 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 
   //display print friendly recipe
   if (request.message === "printRecipe") {
-    console.log(jsonld)
 
     if (!jsonld) {
       alert('recipe not implemented with ld+json, try a different recipe. Sorry.')
@@ -73,15 +72,17 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     }
 
     const getInstructions = () => {
-      console.log(jsonld.recipeInstructions)
       if (Array.isArray(jsonld.recipeInstructions)) return jsonld.recipeInstructions.flat()
       return jsonld.recipeInstructions
     }
 
     const getIngredients = () => {
-      if (Array.isArray(jsonld.recipeIngredients)) return jsonld.recipeIngredients.flat()
-      return jsonld.recipeIngredients
+      if (Array.isArray(jsonld.recipeIngredient)) return jsonld.recipeIngredient.flat()
+      return jsonld.recipeIngredient
     }
+
+    console.log(getIngredients())
+
 
     db.collection(currentUser.uid)
     .doc(stringToHash(additionalInfo.url))
