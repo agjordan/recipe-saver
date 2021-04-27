@@ -81,8 +81,6 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
       return jsonld.recipeIngredient
     }
 
-    console.log(getIngredients())
-
 
     db.collection(currentUser.uid)
     .doc(stringToHash(additionalInfo.url))
