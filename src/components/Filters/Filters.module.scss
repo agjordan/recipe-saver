@@ -3,12 +3,13 @@
 .filtersContainer {
   box-sizing: border-box;
   height: 10%;
-  min-width: 5vw;
+  min-width: 4vw;
   background-color: $background-color;
   color: $primary-text;
   position: fixed;
   right: 0;
-  padding: 20px;
+  top: 25%;
+  padding: 10px;
   display: flex;
   border-radius: $br-rounded 0 0 $br-rounded;
   border-left: 1px solid $primary-text;
@@ -24,6 +25,17 @@
     flex-direction: row;
   }
 
+  .dropdowns {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    text-align: right;
+    .dropdownsTitle {
+      width: 100%
+    }
+  }
+
   select {
     background-color: $primary-text;
     color: $background-color;
@@ -32,8 +44,14 @@
 }
 
 @media only screen and (min-width: 768px) {
-  .filtersContainer {
-    height: 100%;
-    min-width: 5vw;
-  }
+  // .filtersContainer {
+  //   min-width: 5vw;
+  //   padding: 20px;
+
+  //   .dropdowns {
+  //     display: flex;
+  //     flex-direction: column;
+  //     justify-content: flex-start;
+  //   }
+  // }
 }

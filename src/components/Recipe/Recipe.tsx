@@ -47,12 +47,12 @@ function Recipe() {
             <div className={styles.instructionIngredientsContainer}>
               <ul>
                 {recipe.ingredients.map((ingredient: any) => (
-                  <li>{parse(ingredient)}</li>
+                  <li key={ingredient}>{parse(ingredient)}</li>
                 ))}
               </ul>
               <ol>
                 {recipe.instructions.map((instruction: any) => (
-                  <li>{parse(instruction.text)}</li>
+                  <li key={instruction.text}>{parse(instruction.text)}</li>
                 ))}
               </ol>
             </div>

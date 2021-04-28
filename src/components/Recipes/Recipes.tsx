@@ -12,6 +12,8 @@ const Recipes = () => {
 
   const [recipes, setRecipes]:any = useState([]);
   const [userID] = useState(userContext.user.uid);
+  const [filters, setFilters] = useState({cuisine: '', category: ''})
+  const [filteredRecipes, setFilteredRecipes] = useState([])
 
   useEffect(() => {
     const getRecipes = async (): Promise<void> => {
@@ -20,6 +22,16 @@ const Recipes = () => {
     };
     getRecipes();
   }, [userID]);
+
+  useEffect(() => {
+    const cuisine = filters.cuisine
+    const category = filters.category
+
+    let filtered = recipes;
+    if (cuisine) filtered = filtered.filter((recipe:IRecipe) => recipe.cuisine === cuisine)
+    if (category) filtered = filtered.filter((recipe:IRecipe) => recipe.category === category)
+    setFilteredRecipes(filtered)
+  }, [recipes, filters])
 
   const deleteRecipeAndRefresh = async (docId: string): Promise<void> => {
     deleteRecipe(userID, docId);
@@ -38,9 +50,10 @@ const Recipes = () => {
 
   const cuisines: string[] = Array.from(new Set(recipes.map((recipe:IRecipe) => recipe.cuisine)))
   const categories: string[] = Array.from(new Set(recipes.map((recipe:IRecipe) => recipe.category)))
+
   return (
     <div className={styles.results}>
-      {/* <Filters cuisines={cuisines} categories={categories} /> */}
+      <Filters cuisines={cuisines} categories={categories} setFilters={setFilters} activeFilters={filters}/>
       <div className={styles.resultsTop}>
         <p>Welcome back! {userContext.user.displayName}</p>
         <form onSubmit={addRecipeFromURL}>
@@ -50,8 +63,8 @@ const Recipes = () => {
         <button onClick={signOut}>Logout</button>
       </div>
       <div className={styles.cardsContainer}>
-        {recipes &&
-          recipes.map((recipe: IRecipe) => (
+        {filteredRecipes &&
+          filteredRecipes.map((recipe: IRecipe) => (
             <RecipeCard
               key={recipe.id}
               {...recipe}

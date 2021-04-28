@@ -55,18 +55,18 @@
   .results {
     .resultsTop {
       box-sizing: border-box;
-      width: 85%;
+      width: 100%;
       height: 7vh;
       display: flex;
       flex-direction: row;
       justify-content: space-between;
       align-items: center;
       padding: 10px;
-      border-radius: 0 0 $br-rounded 0;
 
       input {
         width: 35vw;
       }
+      
       button {
         width: auto;
         cursor: pointer;
