@@ -71,8 +71,6 @@ export const saveRecipeWithUrl = async (userId:string, url:string ) => {
     return jsonld.recipeIngredient
   }
 
-  console.log(jsonld.recipeIngredient)
-
   db.collection(userId)
   .doc(stringToHash(url))
   .set({
