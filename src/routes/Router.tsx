@@ -1,19 +1,12 @@
-import React, { useState, useEffect, useContext } from "react";
+import React from "react";
 import Login from "../components/Login";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import PrivateRoute from "./PrivateRoute";
-import { UserContext } from "../context/UserProvider";
 import Recipes from "../components/Recipes";
 import Recipe from "../components/Recipe";
 import Register from "../components/Register";
 
 const Router = () => {
-  const [loaded, setLoaded] = useState(false);
-  let userContext = useContext(UserContext)
-
-  useEffect(() => {
-    if (userContext.user) setLoaded(true)
-  }, [loaded, userContext])
 
   return (
     <BrowserRouter>
@@ -24,7 +17,7 @@ const Router = () => {
         <Route path="/register">
           <Register />
         </Route>
-        {loaded && <PrivateRoute>
+        <PrivateRoute>
           <Route exact path="/">
             <Recipes />
           </Route>
@@ -34,7 +27,7 @@ const Router = () => {
           <Route exact path="/recipe/:recipeId">
             <Recipe />
           </Route>
-        </PrivateRoute>}
+        </PrivateRoute>
       </Switch>
     </BrowserRouter>
   );
