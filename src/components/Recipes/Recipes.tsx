@@ -14,6 +14,7 @@ const Recipes = () => {
   const [userID] = useState(userContext.user.uid);
   const [filters, setFilters] = useState({cuisine: '', category: ''})
   const [filteredRecipes, setFilteredRecipes] = useState([])
+  const [fetching, setFetching] = useState(false)
 
   useEffect(() => {
     const getRecipes = async (): Promise<void> => {
@@ -42,10 +43,13 @@ const Recipes = () => {
   const addRecipeFromURL = async (event: any) => {
     event.preventDefault();
     const url = event.target[0].value;
+    if (!url) return
+    setFetching(true)
     event.target[0].value = null
     await saveRecipeWithUrl(userID, url)
     const recipeArray: any = await getUserRecipes(userID);
     setRecipes(recipeArray);
+    setFetching(false)
   }
 
   const cuisines: string[] = Array.from(new Set(recipes.map((recipe:IRecipe) => recipe.cuisine)))
@@ -58,7 +62,8 @@ const Recipes = () => {
         <p>Welcome back! {userContext.user.displayName}</p>
         <form onSubmit={addRecipeFromURL}>
           <input type="text" placeholder="url for recipe to save"/>
-          <button type="submit">Save</button>
+          {fetching ? <div className={styles.ldsRing}><div></div><div></div><div></div><div></div></div>
+          : <button type="submit" id='saveBtn'>Save</button>}
         </form>
         <button onClick={signOut}>Logout</button>
       </div>
