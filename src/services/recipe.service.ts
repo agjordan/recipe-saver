@@ -28,12 +28,13 @@ export const updateNotes = async (
 export const saveRecipeWithUrl = async (userId:string, url:string ) => {
 
   const jsonld:any = await fetch(`https://recipe-saver-server.herokuapp.com/?url=${url}`).then(response => response.json())
-  console.log(jsonld)
 
   if (!jsonld) {
     alert('recipe not implemented with ld+json, try a different recipe. Sorry.')
     return
   }
+
+  
 
   if (Array.isArray(jsonld.image)) jsonld.image = jsonld.image.flat()
 

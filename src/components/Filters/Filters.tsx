@@ -18,7 +18,6 @@ const Filters = ({
 
   const toggleFilters = () => {
     setExpanded(!expanded);
-    console.log(new Set(cuisines), new Set(categories));
   };
 
   const handleChange = () => {
