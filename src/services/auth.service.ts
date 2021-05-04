@@ -21,4 +21,8 @@ export const registerNewUser = (email: string, password: string) => {
   auth.createUserWithEmailAndPassword(email, password).catch(error => alert(error))
 }
 
+export const signInAsTestUser = () => {
+  auth.signInWithEmailAndPassword('test@example.com', 'thisisatest')
+}
+
 export default auth 

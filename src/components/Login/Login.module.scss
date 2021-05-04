@@ -31,6 +31,7 @@
       color: $background-color;
       border-radius: $br-rounded;
       border: none;
+      padding: 0 10px;
     }
   }
 
@@ -41,11 +42,18 @@
     border-radius: $br-rounded;
     display: flex;
     align-items: center;
+    cursor: pointer;
 
     svg {
       height: 20px;
       margin-right: 10px;
     }
+  }
+
+  .testUserLogin {
+    justify-self: right;
+    margin-right: 20px;
+    cursor: pointer;
   }
 }
 

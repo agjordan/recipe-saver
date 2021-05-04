@@ -1,33 +1,33 @@
-@import '../../styles.scss';
+@import "../../styles.scss";
 
-.spacer{
+.spacer {
   height: 20vh;
   width: 100%;
 }
 
 .registerContainer {
-    background-color: $background-color;
-    color: $primary-text;
-    display: grid;
-    place-items: center;
-    width: 90vw;
-    margin: auto;
-    border-radius: $br-rounded;
+  background-color: $background-color;
+  color: $primary-text;
+  display: grid;
+  place-items: center;
+  width: 90vw;
+  margin: auto;
+  border-radius: $br-rounded;
 
-    
   .registerForm {
     display: flex;
     flex-direction: column;
     margin: 20px;
 
     .formElement {
-        margin-bottom: 10px;
-        background-color: $primary-text;
-        color: $background-color;
-        border-radius: $br-rounded;
+      margin-bottom: 10px;
+      background-color: $primary-text;
+      color: $background-color;
+      border-radius: $br-rounded;
+      border: none;
+      padding: 0 10px;
     }
   }
-
 }
 
 @media only screen and (min-width: 768px) {
