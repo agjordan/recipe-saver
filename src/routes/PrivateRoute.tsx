@@ -4,6 +4,8 @@ import { UserContext } from  '../context/UserProvider'
 
 const PrivateRoute = ({ children, ...rest }:any) => {
     const auth = useContext(UserContext)
+
+    console.log('Private route: ', auth)
     return (
         <Route
         {...rest}

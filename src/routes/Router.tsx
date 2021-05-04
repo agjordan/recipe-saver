@@ -21,9 +21,6 @@ const Router = () => {
           <Route exact path="/">
             <Recipes />
           </Route>
-          <Route exact path="/recipes">
-            <Recipes />
-          </Route>
           <Route exact path="/recipe/:recipeId">
             <Recipe />
           </Route>
