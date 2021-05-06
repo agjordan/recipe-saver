@@ -62,7 +62,7 @@ const Recipes = () => {
         <p>Welcome back! {userContext.user.displayName}</p>
         <form onSubmit={addRecipeFromURL}>
           <input type="text" placeholder="url for recipe to save"/>
-          {fetching ? <div className={styles.ldsRing}><div></div><div></div><div></div><div></div></div>
+          {fetching ? <button >Getting recipe...</button>
           : <button type="submit" id='saveBtn'>Save</button>}
         </form>
         <button onClick={signOut}>Logout</button>
