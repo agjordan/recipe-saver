@@ -1,4 +1,4 @@
-import { db } from "./firebase.service";
+import { firestoreDB as db } from "./firebase.service";
 import "firebase/firestore";
 
 export const getUserRecipes = async (userId: string) => {
