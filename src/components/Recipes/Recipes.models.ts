@@ -1,4 +1,4 @@
-export interface IRecipe {
+export type Recipe = {
     json: string
     name: string
     url: string
@@ -11,6 +11,7 @@ export interface IRecipe {
     cookTime: string
     prepTime: string
     notes:string
+    delRecipe: (id: string) => void
 }
 
 export interface IImageObject {

@@ -2,7 +2,7 @@ import React from "react";
 import { useContext } from "react";
 import { UserContext } from "../../context/UserProvider";
 import { registerNewUser } from "../../services/auth.service";
-import { Redirect } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import styles from "./Register.module.scss";
 
 function Register() {
@@ -17,7 +17,7 @@ function Register() {
   return (
     <div>
       {userContext.user && (
-        <Redirect
+        <Navigate
           to={{
             pathname: "/",
           }}

@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
+import firebase from "../../services/firebase.service"
 import { useParams } from "react-router-dom";
 import { UserContext } from "../../context/UserProvider";
 import { getRecipeByID } from "../../services/recipe.service";
@@ -7,25 +8,25 @@ import parse from "html-react-parser";
 import Notes from "../Notes";
 
 function Recipe() {
-  const userContext = useContext(UserContext);
+  const { user, isLoading } = useContext(UserContext);
   const params: any = useParams();
-  const [userId]: any = useState(userContext.user.uid);
-  const [recipe, setRecipe]: any = useState(null);
+  const [recipe, setRecipe] = useState<firebase.firestore.DocumentData | undefined>();
 
   useEffect(() => {
     const getRecipe = async () => {
-      const result: any = await getRecipeByID(userId, params.recipeId);
-      setRecipe(result);
+      setRecipe(await getRecipeByID(user?.uid, params.recipeId));
     };
 
     getRecipe();
-  }, [userId, params.recipeId]);
+  }, [user, params.recipeId]);
+
+  if (isLoading) return <p>Loading ...</p>
 
   return (
     <div className={styles.page}>
       {recipe && (
         <>
-          <Notes key={params.recipeId} notes={recipe.notes} userId={userId} docId={params.recipeId}/>
+          <Notes key={params.recipeId} notes={recipe.notes} userId={user.uid} docId={params.recipeId}/>
           <div className={styles.recipe}>
             <div className={styles.titleImageContainer}>
               <img src={recipe.image} alt={recipe.name} />

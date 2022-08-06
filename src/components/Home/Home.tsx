@@ -1,19 +1,22 @@
 import React, { useContext } from 'react'
 import { UserContext } from "../../context/UserProvider"
 import { signOut } from "../../services/auth.service"
-import { Link } from 'react-router-dom'
 
   
 const Home = () => {
-    const userContext = useContext(UserContext);  
+    const { user, isLoading } = useContext(UserContext);  
+
+    if (isLoading) return <p>Loading ...</p>
 
     return (
         <>
-        {userContext.user &&
+        {user &&
         <>
-          <p>Welcome back! {userContext.user.displayName}</p>
-          <img src={userContext.user.photoURL} alt=""/>
-          <div><button onClick={signOut}>Logout</button><Link to="/recipes"><button>View Recipes</button></Link></div>
+          <p>Welcome back! {user.displayName}</p>
+          <img src={user.photoURL} alt=""/>
+          <div>
+            <button onClick={signOut}>Logout</button>
+          </div>
         </>}
         </>
     )

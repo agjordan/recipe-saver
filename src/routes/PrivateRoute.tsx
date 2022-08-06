@@ -1,28 +1,33 @@
-import React, { useContext } from 'react'
-import { Route, Redirect } from 'react-router-dom'
-import { UserContext } from  '../context/UserProvider'
+import React, { FC, ReactNode, useCallback, useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom';
+import { firesbaseAuth } from '../services/firebase.service';
 
-const PrivateRoute = ({ children, ...rest }:any) => {
-    const auth = useContext(UserContext)
+interface IPrivateRoute {
+  children: ReactNode;
+}
 
-    console.log('Private route: ', auth)
-    return (
-        <Route
-        {...rest}
-        render={({ location }) =>
-          auth.user ? (
-            children
-          ) : (
-            <Redirect
-              to={{
-                pathname: "/login",
-                state: { from: location }
-              }}
-            />
-          )
-        }
-      />
-    )
+const PrivateRoute: FC<IPrivateRoute> = ({ children }) => {
+
+  const [ isLoading, setIsLoading ] = useState(false);
+  const navigate = useNavigate();
+  
+  const checkAuth = useCallback(() => {
+    firesbaseAuth.onAuthStateChanged((user) => {
+      if (user) {
+        setIsLoading(false)
+      } else {
+        navigate('/login')
+      }
+    });
+  }, [navigate])
+
+  useEffect(() => {
+    checkAuth();
+  }, [checkAuth])
+
+  if (isLoading) return <p>Loading ...</p>
+
+  return <>{children}</>
 }
 
 export default PrivateRoute

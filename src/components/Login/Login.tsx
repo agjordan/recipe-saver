@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { UserContext } from "../../context/UserProvider";
 import { signInWithGoogle, signInWithEmail, signInAsTestUser } from "../../services/auth.service";
-import { Link, Redirect } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import styles from "./Login.module.scss";
 
 const Login = () => {
@@ -17,7 +17,7 @@ const Login = () => {
   return (
     <div>
       {userContext.user && (
-        <Redirect
+        <Navigate
           to={{
             pathname: "/",
           }}

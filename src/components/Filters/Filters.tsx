@@ -1,31 +1,31 @@
-import React, { useState } from "react";
+import React, { FC, memo, useCallback, useState } from "react";
 import styles from "./Filters.module.scss";
 
-interface IFilterProps {
+type FilterProps = {
   cuisines: string[];
   categories: string[];
   setFilters: any;
   activeFilters: any;
 }
 
-const Filters = ({
+const Filters: FC<FilterProps> = ({
   cuisines,
   categories,
   setFilters,
   activeFilters,
-}: IFilterProps) => {
+}) => {
   const [expanded, setExpanded] = useState(false);
 
-  const toggleFilters = () => {
+  const toggleFilters = useCallback(() => {
     setExpanded(!expanded);
-  };
+  }, [expanded])
 
-  const handleChange = () => {
+  const handleChange = useCallback(() => {
     const cuisine = (document.getElementById("cuisine") as HTMLInputElement).value;
     const category = (document.getElementById("category") as HTMLInputElement).value;
 
     setFilters({ cuisine: cuisine, category: category });
-  };
+  }, [setFilters])
 
   return (
     <div className={styles.filtersContainer}>
@@ -77,4 +77,4 @@ const Filters = ({
   );
 };
 
-export default Filters;
+export default memo(Filters);

@@ -1,7 +1,6 @@
-import firebase from './firebase.service'
+import firebase, { firesbaseAuth as auth } from './firebase.service'
 import 'firebase/auth'
 
-const auth = firebase.auth()
 const provider = new firebase.auth.GoogleAuthProvider();
 
 export const signOut = ():void => {

@@ -1,15 +1,13 @@
-import React from "react";
-import { useHistory } from "react-router-dom";
-import { IRecipe } from "../Recipes/Recipes.models";
+import React, { FC } from "react";
+import { useNavigate } from "react-router-dom";
+import { Recipe } from "../Recipes/Recipes.models";
 import styles from "./RecipeCard.module.scss";
 
-const RecipeCard = (props: any) => {
-  const { category, cuisine, image, name, id }: IRecipe = props
-  const delRecipe: any = props.delRecipe
-  let history = useHistory();
+const RecipeCard: FC<Recipe> = ({category, cuisine, image, name, id, delRecipe}) => {
+  let navigate = useNavigate();
 
   const handleClick = () => {
-    history.push(`/recipe/${id}`);
+    navigate(`/recipe/${id}`);
   };
   
   const removeRecipe = (event:any) => {
